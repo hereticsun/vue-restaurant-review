@@ -1,33 +1,30 @@
 <template>
-  <div id="app">
-    <header-primary></header-primary>
-    <router-view></router-view>
-  </div>
+    <div id="app">
+        <header-primary></header-primary>
+        <router-view></router-view>
+    </div>
 </template>
-
 <script>
 import HeaderPrimary from './components/common/header-primary/HeaderPrimary';
 
 export default {
-  name: 'app',
-  components: {
-    HeaderPrimary,
-  },
-  created() {
-    this.$store.dispatch('initEvents');
-    this.$store.dispatch('initMeister');
-  },
+    name: 'app',
+    components: {
+        HeaderPrimary,
+    },
+    created() {
+        this.$store.dispatch('initEvents');
+        this.$store.dispatch('initMeister');
+    },
 };
 </script>
-
 <style>
-  @import "./assets/css/normalize.css";
-
-  #app {
+@import "./assets/css/normalize.css";
+#app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
     background-color: #fff;
-  }
+}
 </style>

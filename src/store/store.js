@@ -8,9 +8,9 @@ import * as actions from './actions';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  actions,
-  modules: {
-    events,
-    bananaMeister,
-  },
+    actions,
+    modules: {
+        events,
+        bananaMeister,
+    },
 });

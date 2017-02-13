@@ -1,91 +1,87 @@
 <template>
-  <div>
-    <section class="bananameister">
-      <div class="container">
-        <h2>Current Banana Meister: <mark>{{ data.bananaMeister }}</mark> <button @click="editMeister = !editMeister" class="bananameister__edit-link">{{ editMeister ? 'Cancel' : 'Edit' }}</button></h2>
-        <transition name="fade">
-          <form class="edit-meister" v-if="editMeister">
-            <label for="newMeister">New Banana Meister</label>
-            <input type="text" v-model="newMeister" />
-            <button @click.prevent="updateMeister(newMeister)" class="bananameister__submit">Update</button>
-          </form>
-        </transition>
-        <button @click="eventForm = !eventForm" class="bananameister__add-event">{{ eventForm ? 'Cancel' : 'Add Event' }}</button>
-      </div>
-    </section>
-<!--     <transition name="slide"> -->
-      <add-event v-if="eventForm"></add-event>
-<!--     </transition> -->
-    <active-event :event="activeEvent[0]"></active-event>
-    <events-list :events="events"></events-list>
-  </div>
+    <div>
+        <section class="bananameister">
+            <div class="container">
+                <h2>Current Banana Meister: <mark>{{ data.bananaMeister }}</mark> <button @click="editMeister = !editMeister" class="bananameister__edit-link">{{ editMeister ? 'Cancel' : 'Edit' }}</button></h2>
+                <transition name="fade">
+                    <form class="edit-meister" v-if="editMeister">
+                        <label for="newMeister">New Banana Meister</label>
+                        <input type="text" v-model="newMeister" />
+                        <button @click.prevent="updateMeister(newMeister)" class="bananameister__submit">Update</button>
+                    </form>
+                </transition>
+                <button @click="eventForm = !eventForm" class="bananameister__add-event">{{ eventForm ? 'Cancel' : 'Add Event' }}</button>
+            </div>
+        </section>
+        <!--     <transition name="slide"> -->
+        <add-event v-if="eventForm"></add-event>
+        <!--     </transition> -->
+        <active-event :event="activeEvent[0]"></active-event>
+        <events-list :events="events"></events-list>
+    </div>
 </template>
-
 <script>
-  import db from '../../../data/firebase';
-  import AddEvent from './AddEvent';
-  import ActiveEvent from './ActiveEvent';
-  import EventsList from './EventsList';
+import db from '../../../data/firebase';
+import AddEvent from './AddEvent';
+import ActiveEvent from './ActiveEvent';
+import EventsList from './EventsList';
 
-  export default {
+export default {
     name: 'home',
     data() {
-      return {
-        newMeister: '',
-        bananaMeister: '',
-        events: [],
-        activeEvent: null,
-        editMeister: false,
-        eventForm: false,
-      };
+        return {
+            newMeister: '',
+            bananaMeister: '',
+            events: [],
+            activeEvent: null,
+            editMeister: false,
+            eventForm: false,
+        };
     },
     firebase: {
-      data: {
-        source: db.ref('data'),
-        asObject: true,
-      },
-      events: db.ref('events'),
-      activeEvent: db.ref('events').orderByChild('date').limitToLast(1),
+        data: {
+            source: db.ref('data'),
+            asObject: true,
+        },
+        events: db.ref('events'),
+        activeEvent: db.ref('events').orderByChild('date').limitToLast(1),
     },
     methods: {
-      updateMeister(bananaMeister) {
-        this.$firebaseRefs.data.child('bananaMeister').set(bananaMeister);
-        this.editMeister = false;
-        this.newMeister = '';
-      },
+        updateMeister(bananaMeister) {
+            this.$firebaseRefs.data.child('bananaMeister').set(bananaMeister);
+            this.editMeister = false;
+            this.newMeister = '';
+        },
     },
     components: {
-      addEvent: AddEvent,
-      activeEvent: ActiveEvent,
-      eventsList: EventsList,
+        addEvent: AddEvent,
+        activeEvent: ActiveEvent,
+        eventsList: EventsList,
     },
-  };
+};
 </script>
-
-<style lang="postcss" scoped >
-  .bananameister {
+<style lang="postcss" scoped>
+.bananameister {
     box-sizing: border-box;
     width: 100%;
     margin: 0 auto;
     padding: 0 20px;
     overflow: hidden;
     background: #000;
-    color:  #fff;
+    color: #fff;
     text-align: center;
-
     h2 {
-      font-size: 16px;
-      line-height: 20px;
-      float: left;
-
-      mark {
-        color: #FEF200;
-        background: transparent;
-      }
+        font-size: 16px;
+        line-height: 20px;
+        float: left;
+        mark {
+            color: #FEF200;
+            background: transparent;
+        }
     }
-  }
+}
 
-  .bananameister__edit-link {
+.bananameister__edit-link {
     position: relative;
     top: -1px;
     font-size: 12px;
@@ -98,19 +94,17 @@
     padding: 3px 5px;
     transition: background 0.4s ease-in;
     cursor: pointer;
+    &:hover {}
+}
 
-    &:hover {
-    }
-  }
-
-  .edit-meister {
+.edit-meister {
     box-sizing: border-box;
     float: left;
     padding: 10px 20px;
     overflow: hidden;
-  }
+}
 
-  .bananameister__add-event {
+.bananameister__add-event {
     position: relative;
     font-size: 12px;
     display: inline-block;
@@ -123,60 +117,68 @@
     padding: 3px 5px;
     transition: background 0.4s ease-in;
     cursor: pointer;
-  }
+}
 
-  .bananameister__submit {
+.bananameister__submit {
     background-color: #eaeaea;
     border: 1px solid #d5d5d5;
     border-radius: 5px;
     padding: 3px 5px;
     margin-left: 5px;
-  }
+}
 
-  .container {
+.container {
     width: 100%;
     max-width: 1440px;
     box-sizing: border-box;
     margin: 0 auto;
-  }
-  .fade-enter {
-    opacity: 0;
-  }
-  .fade-enter-active {
-    transition: opacity 0.2s ease-in;
-  }
-  .fade-leave {}
-  .fade-leave-active {
-    transition: opacity 0.2s ease-in;
-    opacity: 0;
-  }
+}
 
-  .slide-enter {
-    height: 0;
-  }
-  .slide-enter-active {
-    transition: height 0.2s ease-in;
-  }
-  .slide-leave {}
-  .slide-leave-active{
-    transition: height 0.2s ease-in;
-    height: 0;
-  }
+.fade-enter {
+    opacity: 0;
+}
 
-  @keyframes slide-in {
+.fade-enter-active {
+    transition: opacity 0.2s ease-in;
+}
+
+.fade-leave {}
+
+.fade-leave-active {
+    transition: opacity 0.2s ease-in;
+    opacity: 0;
+}
+
+.slide-enter {
+    height: 0;
+}
+
+.slide-enter-active {
+    transition: height 0.2s ease-in;
+}
+
+.slide-leave {}
+
+.slide-leave-active {
+    transition: height 0.2s ease-in;
+    height: 0;
+}
+
+@keyframes slide-in {
     from {
-      transform: translateY(-44px);
+        transform: translateY(-44px);
     }
     to {
-      transform: translateY(0);
+        transform: translateY(0);
     }
-  }
-  @keyframes slide-out {
+}
+
+@keyframes slide-out {
     from {
-      transform: translateY(0);
+        transform: translateY(0);
     }
     to {
-      transform: translateY(-44px);
+        transform: translateY(-44px);
     }
-  }
+}
 </style>
