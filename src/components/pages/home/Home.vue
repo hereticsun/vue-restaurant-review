@@ -11,6 +11,7 @@
                     </form>
                 </transition>
                 <button @click="eventForm = !eventForm" class="bananameister__add-event">{{ eventForm ? 'Cancel' : 'Add Event' }}</button>
+                <button @click="onUserLogin">Sign In</button>
             </div>
         </section>
         <!--     <transition name="slide"> -->
@@ -21,10 +22,16 @@
     </div>
 </template>
 <script>
+import firebase from 'firebase';
 import db from '../../../data/firebase';
 import AddEvent from './AddEvent';
 import ActiveEvent from './ActiveEvent';
 import EventsList from './EventsList';
+import { getUserStatus } from '../../../data/auth';
+
+const user = getUserStatus;
+// eslint-disable-next-line
+console.log('getUserStatus', user);
 
 export default {
     name: 'home',
@@ -36,6 +43,7 @@ export default {
             activeEvent: null,
             editMeister: false,
             eventForm: false,
+            user: undefined,
         };
     },
     firebase: {
@@ -52,6 +60,21 @@ export default {
             this.editMeister = false;
             this.newMeister = '';
         },
+        onUserLogin() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider)
+                // eslint-disable-next-line
+                .then((result) => {
+                    return result;
+                })
+                // eslint-disable-next-line
+                .catch((error) => {
+                    return error;
+                });
+        },
+    },
+    mounted() {
+        firebase.auth().onAuthStateChanged(this.onUserLogin);
     },
     components: {
         addEvent: AddEvent,
