@@ -16,7 +16,7 @@
                 <li class="event-info__website"><a :href="event.website">Visit website</a></li>
                 <li class="event-info__menu"><a :href="event.menu">View menu</a></li>
                 <li class="event-info__meister">Chosen by: <strong>{{ event.bananaMeister }}</strong></li>
-                <li class="event-info__rating">
+                <li class="event-info__rating" v-if="user">
                     Rate this restaurant:
                     <div class="event__rating" :class="{ submitted: isSubmitted }">
                         <span @click="submitRating(5)">&#9734;</span>
@@ -26,7 +26,7 @@
                         <span @click="submitRating(1)">&#9734;</span>
                     </div>
                 </li>
-                <li class="event-info__ave-rating" v-if="averageRating > 0">(Ave: {{ averageRating }})</li>
+                <li class="event-info__ave-rating" v-if="averageRating > 0">Ave. rating: {{ averageRating }}</li>
             </ul>
         </div>
     </section>
@@ -41,7 +41,7 @@ export default {
             isSubmitted: false,
         };
     },
-    props: ['event'],
+    props: ['event', 'user'],
     computed: {
         averageRating() {
             const values = this.event.rating;

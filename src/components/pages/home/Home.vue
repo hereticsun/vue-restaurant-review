@@ -10,21 +10,29 @@
                         <button @click.prevent="updateMeister(newMeister)" class="bananameister__submit">Update</button>
                     </form>
                 </transition>
-                <button @click="eventForm = !eventForm" class="bananameister__add-event">{{ eventForm ? 'Cancel' : 'Add Event' }}</button>
+                <button @click="onUserLogin" class="bananameister__signinout" v-if="!user">Sign In</button>
+                <button @click="onUserSignOut" class="bananameister__signinout" v-if="user">Sign Out</button>
+                <button @click="eventForm = !eventForm" class="bananameister__add-event" v-if="user">{{ eventForm ? 'Cancel' : 'Add Event' }}</button>
             </div>
         </section>
         <!--     <transition name="slide"> -->
         <add-event v-if="eventForm"></add-event>
         <!--     </transition> -->
-        <active-event :event="activeEvent[0]"></active-event>
+        <active-event :event="activeEvent[0]" :user="user"></active-event>
         <events-list :events="events"></events-list>
     </div>
 </template>
 <script>
+import firebase from 'firebase';
 import db from '../../../data/firebase';
 import AddEvent from './AddEvent';
 import ActiveEvent from './ActiveEvent';
 import EventsList from './EventsList';
+// import { getUserStatus } from '../../../data/auth';
+
+const currentuser = firebase.auth().currentuser;
+// eslint-disable-next-line
+console.log('Current user', currentuser);
 
 export default {
     name: 'home',
@@ -36,6 +44,7 @@ export default {
             activeEvent: null,
             editMeister: false,
             eventForm: false,
+            user: undefined,
         };
     },
     firebase: {
@@ -51,6 +60,48 @@ export default {
             this.$firebaseRefs.data.child('bananaMeister').set(bananaMeister);
             this.editMeister = false;
             this.newMeister = '';
+        },
+        onUserLogin() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider)
+                // eslint-disable-next-line
+                .then((result) => {
+                    // eslint-disable-next-line
+                    console.log('Result:', result);
+                    this.user = result.user.uid;
+                    return result;
+                })
+                // eslint-disable-next-line
+                .catch((error) => {
+                    return error;
+                });
+        },
+        onUserSignOut() {
+            firebase.auth().signOut()
+                // eslint-disable-next-line
+                .then(() => {
+                    this.user = undefined;
+                    //eslint-disable-next-line
+                    console.log('Signed out');
+                })
+                // eslint-disable-next-line
+                .catch((error) => {
+                    //eslint-disable-next-line
+                    console.log('Sign out error', error);
+                });
+        },
+        checkUser() {
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    this.user = user;
+                    //eslint-disable-next-line
+                    console.log('Check user', user);
+                } else {
+                    this.user = undefined;
+                    //eslint-disable-next-line
+                    console.log('User not logged in');
+                }
+            });
         },
     },
     components: {
@@ -104,13 +155,14 @@ export default {
     overflow: hidden;
 }
 
-.bananameister__add-event {
+.bananameister__add-event,
+.bananameister__signinout {
     position: relative;
     font-size: 12px;
     display: inline-block;
     width: auto;
     float: right;
-    margin: 13px 0;
+    margin: 13px 0 13px 5px;
     background-color: #eaeaea;
     border: 1px solid #d5d5d5;
     border-radius: 5px;
