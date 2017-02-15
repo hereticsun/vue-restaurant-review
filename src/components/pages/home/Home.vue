@@ -18,7 +18,7 @@
         <!--     <transition name="slide"> -->
         <add-event v-if="eventForm"></add-event>
         <!--     </transition> -->
-        <active-event :event="activeEvent[0]"></active-event>
+        <active-event :event="activeEvent[0]" :user="user"></active-event>
         <events-list :events="events"></events-list>
     </div>
 </template>
