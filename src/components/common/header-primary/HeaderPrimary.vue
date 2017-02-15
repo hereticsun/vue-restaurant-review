@@ -24,7 +24,7 @@ header {
     h1 {
         text-align: center;
         margin: 20px 0 0 0;
-        font-family: "Lightning-Handmade-CAPS";
+        font-family: "Lightning-Handmade-CAPS", sans-serif;
         font-size: 72px;
     }
     .logo {
