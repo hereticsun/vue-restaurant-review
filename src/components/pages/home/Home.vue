@@ -16,7 +16,7 @@
             </div>
         </section>
         <!--     <transition name="slide"> -->
-        <add-event v-if="eventForm"></add-event>
+        <add-event v-if="eventForm" @resetForm="eventForm = $event"></add-event>
         <!--     </transition> -->
         <active-event :event="activeEvent[0]" :user="user"></active-event>
         <events-list :events="events"></events-list>
@@ -28,11 +28,6 @@ import db from '../../../data/firebase';
 import AddEvent from './AddEvent';
 import ActiveEvent from './ActiveEvent';
 import EventsList from './EventsList';
-// import { getUserStatus } from '../../../data/auth';
-
-const currentuser = firebase.auth().currentuser;
-// eslint-disable-next-line
-console.log('Current user', currentuser);
 
 export default {
     name: 'home',
@@ -52,7 +47,7 @@ export default {
             source: db.ref('data'),
             asObject: true,
         },
-        events: db.ref('events'),
+        events: db.ref('events').orderByChild('date'),
         activeEvent: db.ref('events').orderByChild('date').limitToLast(1),
     },
     methods: {
