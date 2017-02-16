@@ -10,16 +10,14 @@
                         <button @click.prevent="updateMeister(newMeister)" class="bananameister__submit">Update</button>
                     </form>
                 </transition>
-                <button @click="onUserLogin" class="bananameister__signinout" v-if="!user">Sign In</button>
-                <button @click="onUserSignOut" class="bananameister__signinout" v-if="user">Sign Out</button>
+                <button @click="onUserLogIn" class="bananameister__signinout" v-if="!user">Sign In</button>
+                <button @click="onUserLogOut" class="bananameister__signinout" v-if="user">Sign Out</button>
                 <button @click="eventForm = !eventForm" class="bananameister__add-event" v-if="user">{{ eventForm ? 'Cancel' : 'Add Event' }}</button>
             </div>
         </section>
-        <!--     <transition name="slide"> -->
         <add-event v-if="eventForm" @resetForm="eventForm = $event"></add-event>
-        <!--     </transition> -->
         <active-event :event="activeEvent[0]" :user="user"></active-event>
-        <events-list :events="events"></events-list>
+        <events-list :events="sortedEvents"></events-list>
     </div>
 </template>
 <script>
@@ -50,13 +48,18 @@ export default {
         events: db.ref('events').orderByChild('date'),
         activeEvent: db.ref('events').orderByChild('date').limitToLast(1),
     },
+    computed: {
+        sortedEvents() {
+            return this.events.reverse().splice(1);
+        },
+    },
     methods: {
         updateMeister(bananaMeister) {
             this.$firebaseRefs.data.child('bananaMeister').set(bananaMeister);
             this.editMeister = false;
             this.newMeister = '';
         },
-        onUserLogin() {
+        onUserLogIn() {
             const provider = new firebase.auth.GoogleAuthProvider();
             firebase.auth().signInWithPopup(provider)
                 // eslint-disable-next-line
@@ -71,7 +74,7 @@ export default {
                     return error;
                 });
         },
-        onUserSignOut() {
+        onUserLogOut() {
             firebase.auth().signOut()
                 // eslint-disable-next-line
                 .then(() => {
