@@ -58,15 +58,17 @@ export default {
     methods: {
         addEvent() {
             const event = {
-                date: this.event.date,
+                date: this.formattedDate(this.event.date),
                 venue: this.event.venue,
                 address: this.event.address,
                 image: this.event.image,
                 website: this.event.website,
                 menu: this.event.menu,
+                rating: [0],
                 bananaMeister: this.event.bananaMeister,
             };
             this.resource.save({}, event);
+            this.$emit('resetForm', false);
         },
         fetchData() {
             this.$http.get('data.json')
@@ -77,6 +79,10 @@ export default {
                 .then((data) => {
                     this.event.bananaMeister = data.bananaMeister;
                 });
+        },
+        formattedDate(date) {
+            const d = new Date(date);
+            return [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-');
         },
     },
     components: {
