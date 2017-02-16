@@ -1,12 +1,12 @@
 <template>
     <li class="events-list__event" @click="toggleFlip">
         <div class="events-list__event-content">
-            <div class="events-list__event--front" style="background-size: cover;" :style="backgroundImage(event.image)">
+            <div class="events-list__event--front" style="background-size: cover;" :style="backgroundImage">
                 <header class="events-list__event-header">
                     <h3>{{ event.venue }}</h3>
                     <dl>
                         <dt>Average Rating:</dt>
-                        <dd>{{ averageRating(event.rating) }}</dd>
+                        <dd>{{ averageRating }}</dd>
                         <dt>Chosen by:</dt>
                         <dd>{{ event.bananaMeister }} &ndash; {{ event.date | formattedDate }}</dd>
                     </dl>
@@ -14,7 +14,7 @@
             </div>
             <div class="events-list__event--back">
                 <div class="events-list__event__map">
-                    <a :href="mapLink(event.address)"><img :src="mapSrc(event.address)" :alt="mapAlt(event.venue)"></a>
+                    <a :href="mapLink"><img :src="mapSrc" :alt="mapAlt"></a>
                 </div>
                 <ul class="event-info">
                     <li class="event-info__venue">
@@ -34,14 +34,13 @@
 export default {
     name: 'eventsListItem',
     props: ['event'],
-    computed: {},
-    methods: {
-        backgroundImage(image) {
-            const s = `background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%), url('${image}') center center no-repeat /cover`;
+    computed: {
+        backgroundImage() {
+            const s = `background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%), url('${this.event.image}') center center no-repeat /cover`;
             return s;
         },
-        averageRating(rating) {
-            const values = rating;
+        averageRating() {
+            const values = this.event.rating;
             const l = values.length;
             let sum = 0;
 
@@ -51,18 +50,20 @@ export default {
 
             return (sum / l).toFixed(2);
         },
-        mapSrc(address) {
-            const src = `https://maps.googleapis.com/maps/api/staticmap?autoscale=2&size=240x270&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7C${encodeURI(address)}`;
+        mapSrc() {
+            const src = `https://maps.googleapis.com/maps/api/staticmap?autoscale=2&size=240x270&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7C${encodeURI(this.event.address)}`;
             return src;
         },
-        mapLink(address) {
-            const link = `https://www.google.com/maps/dir//${encodeURI(address)}/`;
+        mapLink() {
+            const link = `https://www.google.com/maps/dir//${encodeURI(this.event.address)}/`;
             return link;
         },
-        mapAlt(venue) {
-            const alt = `Google Map of ${venue}`;
+        mapAlt() {
+            const alt = `Google Map of ${this.event.venue}`;
             return alt;
         },
+    },
+    methods: {
         toggleFlip() {
             this.addEventListener('touchstart', () => {
                 this.classList.toggle('hover');
