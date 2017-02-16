@@ -10,15 +10,15 @@
                         <button @click.prevent="updateMeister(newMeister)" class="bananameister__submit">Update</button>
                     </form>
                 </transition>
-                <button @click="onUserLogIn" class="bananameister__signinout" v-if="!user">Sign In</button>
-                <button @click="onUserLogOut" class="bananameister__signinout" v-if="user">Sign Out</button>
-                <button @click="eventForm = !eventForm" class="bananameister__add-event" v-if="user">{{ eventForm ? 'Cancel' : 'Add Event' }}</button>
-                <button @click="editEventForm = !editEventForm" class="bananameister__add-event" >{{ editEventForm ? 'Cancel' : 'Edit Event' }}</button>
+                <button @click="onUserLogIn" class="bananameister__button" v-if="!user">Sign In</button>
+                <button @click="onUserLogOut" class="bananameister__button" v-if="user">Sign Out</button>
+                <button @click="eventForm = !eventForm" class="bananameister__button" v-if="user">{{ eventForm ? 'Cancel' : 'Add Event' }}</button>
+                <button @click="editEventForm = !editEventForm" class="bananameister__button" v-if="user">{{ editEventForm ? 'Cancel' : 'Edit Event' }}</button>
             </div>
         </section>
         <add-event v-if="eventForm" @resetForm="eventForm = $event"></add-event>
-        <active-event :event="activeEvent[0]" :user="user"></active-event>
         <edit-event v-if="editEventForm" @resetEditForm="editEventForm = $event" :event="activeEvent[0]"></edit-event>
+        <active-event :event="activeEvent[0]" :user="user"></active-event>
         <events-list :events="sortedEvents"></events-list>
     </div>
 </template>
@@ -158,8 +158,7 @@ export default {
     overflow: hidden;
 }
 
-.bananameister__add-event,
-.bananameister__signinout {
+.bananameister__button {
     position: relative;
     font-size: 12px;
     display: inline-block;
