@@ -115,7 +115,7 @@ export default {
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 100%), url('./img/burger-400.jpg') center center no-repeat #eadeda;
             background-size: cover;
             padding: 0 20px;
-            text-shadow: 0px 0px 5px rgba(150, 150, 150, 1);
+            text-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
             color: #fff;
             .events-list__event-header {
                 position: absolute;

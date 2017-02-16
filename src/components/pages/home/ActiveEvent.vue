@@ -2,8 +2,10 @@
     <section class="event event--active" v-if="event">
         <div class="event__content">
             <header class="event__header" :style="{background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%), url(' + eventImage + ') center center no-repeat / cover'}">
-                <h2>{{ event.venue }}</h2>
-                <h3>{{ event.date | formattedDate }}</h3>
+                <div>
+                    <h2>{{ event.venue }}</h2>
+                    <h3>{{ event.date | formattedDate }}</h3>
+                </div>
             </header>
             <div id="map" class="event__map">
                 <a :href="mapLink" :style="`background: url('${mapSrc}') center center /cover`">
@@ -115,13 +117,22 @@ export default {
             padding: 10px;
             color: #fff;
             text-align: center;
-            text-shadow: 0px 0px 5px rgba(150, 150, 150, 1);
+            text-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
             @media(min-width: 769px) {
                 width: 50%;
             }
+
+            > div {
+                width: 100%;
+            }
+
             h2 {
                 font-size: 64px;
-                margin: 120px auto 30px;
+                margin: 0 auto 0;
             }
         }
         .event__map {
