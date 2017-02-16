@@ -34,6 +34,8 @@
     </section>
 </template>
 <script>
+import db from '../../../data/firebase';
+
 export default {
     name: 'activeEvent',
     data() {
@@ -73,6 +75,9 @@ export default {
             const alt = `Google Map of ${this.event.venue}`;
             return alt;
         },
+    },
+    firebase: {
+        events: db.ref('events'),
     },
     methods: {
         submitRating(star) {
