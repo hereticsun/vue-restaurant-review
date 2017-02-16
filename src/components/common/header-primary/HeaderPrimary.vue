@@ -24,8 +24,10 @@ header {
     h1 {
         text-align: center;
         margin: 20px 0 0 0;
-        font-family: "Lightning-Handmade-CAPS", sans-serif;
+        font-family: "Lightning-Handmade-CAPS", "Gotham", "Impact", "Arial Black", sans-serif;
         font-size: 72px;
+        font-weight: 900;
+        text-transform: uppercase;
     }
     .logo {
         height: 32px;
