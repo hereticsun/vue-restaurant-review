@@ -1,5 +1,5 @@
 <template>
-    <li class="events-list__event">
+    <li class="events-list__event" @click="toggleFlip">
         <div class="events-list__event-content">
             <div class="events-list__event--front" style="background-size: cover;" :style="backgroundImage(event.image)">
                 <header class="events-list__event-header">
@@ -67,10 +67,15 @@ export default {
             const alt = `Google Map of ${venue}`;
             return alt;
         },
+        toggleFlip() {
+            this.addEventListener('touchstart', () => {
+                this.classList.toggle('hover');
+            }, false);
+        },
     },
 };
 </script>
-<style scoped>
+<style>
 .events-list__event {
     width: 100%;
     float: left;
@@ -84,8 +89,11 @@ export default {
     }
     @media(min-width: 1025px) {
         width: calc((1/3) * 100vw);
+        max-width: calc(1440px/3);
+        max-height: 270px;
     }
-    &:hover .events-list__event-content {
+    &:hover .events-list__event-content,
+    &.hover .events-list__event-content {
         transform: rotateY(180deg);
     }
     .events-list__event-content {
