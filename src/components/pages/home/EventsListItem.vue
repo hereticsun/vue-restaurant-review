@@ -24,7 +24,7 @@
                     <li v-if="event.website" class="event-info__website"><a :href="event.website">Visit website</a></li>
                     <li v-if="event.menu" class="event-info__menu"><a :href="event.menu">View menu</a></li>
                     <li class="event-info__meister">Chosen by: <strong>{{ event.bananaMeister }}</strong></li>
-                    <li class="event-info__ave-rating">Ave. rating: {{ averageRating(event.rating) }}</li>
+                    <li class="event-info__ave-rating">Ave. rating: {{ averageRating }}</li>
                 </ul>
             </div>
         </div>
