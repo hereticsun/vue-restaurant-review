@@ -77,7 +77,7 @@ export default {
     width: 100%;
     float: left;
     height: 37.5vw;
-    min-height: 240px;
+    min-height: 270px;
     position: relative;
     perspective: 1000px;
     @media(min-width: 769px) {
