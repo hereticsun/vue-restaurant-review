@@ -3,7 +3,7 @@
         <div class="event__content">
             <header class="event__header" :style="{background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%), url(' + eventImage + ') center center no-repeat / cover'}">
                 <h2>{{ event.venue }}</h2>
-                <h3>{{ formattedDate }}</h3>
+                <h3>{{ event.date | formattedDate }}</h3>
             </header>
             <div id="map" class="event__map">
                 <a :href="mapLink" :style="`background: url('${mapSrc}') center center /cover`">
@@ -11,7 +11,7 @@
                 </a>
             </div>
             <ul class="event-info">
-                <li class="event-info__date">Date: {{ event.date }}</li>
+                <li class="event-info__date">Date: {{ event.date | formattedDate }}</li>
                 <li class="event-info__address">Address: {{ event.address }}</li>
                 <li v-if="event.website" class="event-info__website"><a :href="event.website">Visit website</a></li>
                 <li v-if="event.menu" class="event-info__menu"><a :href="event.menu">View menu</a></li>
@@ -53,10 +53,6 @@ export default {
             }
 
             return (sum / l).toFixed(2);
-        },
-        formattedDate() {
-            const d = new Date(this.event.date);
-            return [d.getDate(), d.getMonth() + 1, d.getFullYear()].join('/');
         },
         eventImage() {
             if (this.event.image) {

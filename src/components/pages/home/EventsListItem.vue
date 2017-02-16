@@ -8,7 +8,7 @@
                         <dt>Average Rating:</dt>
                         <dd>{{ averageRating(event.rating) }}</dd>
                         <dt>Chosen by:</dt>
-                        <dd>{{ event.bananaMeister }} &ndash; {{ formattedDate(event.date) }}</dd>
+                        <dd>{{ event.bananaMeister }} &ndash; {{ event.date | formattedDate }}</dd>
                     </dl>
                 </header>
             </div>
@@ -36,10 +36,6 @@ export default {
     props: ['event'],
     computed: {},
     methods: {
-        formattedDate(date) {
-            const d = new Date(date);
-            return [d.getDate(), d.getMonth() + 1, d.getFullYear()].join('/');
-        },
         backgroundImage(image) {
             const s = `background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%), url('${image}') center center no-repeat /cover`;
             return s;

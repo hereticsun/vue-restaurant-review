@@ -16,6 +16,11 @@ Vue.use(VueFire);
 
 Vue.http.options.root = 'https://tech-lunch-bdc82.firebaseio.com';
 
+Vue.filter('formattedDate', (value) => {
+    const d = new Date(value);
+    return [d.getDate(), d.getMonth() + 1, d.getFullYear()].join('/');
+});
+
 const router = new VueRouter({
     mode: 'history',
     routes,
