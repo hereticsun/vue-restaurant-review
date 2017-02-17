@@ -58,8 +58,6 @@ export default {
         },
         eventImage() {
             if (this.event.image) {
-                // eslint-disable-next-line
-                console.log('URI', encodeURI(this.event.image));
                 return encodeURI(this.event.image);
             }
 
