@@ -4,18 +4,34 @@
             <h2>Previous Events</h2>
         </header>
         <ul class="events-list">
-            <events-list-item v-for="event in events" :event="event"></events-list-item>
+            <events-list-item v-for="event in sortedEvents" :event="event"></events-list-item>
         </ul>
     </section>
 </template>
 <script>
+// import firebase from 'firebase';
+import db from '../../../data/firebase';
 import EventsListItem from './EventsListItem';
 
 export default {
     name: 'eventsList',
-    props: ['events'],
+    // props: ['events'],
     components: {
         eventsListItem: EventsListItem,
+    },
+    firebase: {
+        data: {
+            source: db.ref('data'),
+            asObject: true,
+        },
+        events: db.ref('events').orderByChild('date'),
+        activeEvent: db.ref('events').orderByChild('date').limitToLast(1),
+    },
+    computed: {
+        sortedEvents() {
+            const eventsList = this.events;
+            return eventsList.slice().reverse().splice(1);
+        },
     },
 };
 </script>

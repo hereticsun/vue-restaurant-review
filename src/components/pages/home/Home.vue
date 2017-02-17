@@ -19,7 +19,7 @@
         <add-event v-if="eventForm" @resetForm="eventForm = $event"></add-event>
         <edit-event v-if="editEventForm" @resetEditForm="editEventForm = $event" :event="activeEvent[0]"></edit-event>
         <active-event :event="activeEvent[0]" :user="user"></active-event>
-        <events-list :events="sortedEvents"></events-list>
+        <events-list></events-list>
     </div>
 </template>
 <script>
@@ -36,7 +36,6 @@ export default {
         return {
             newMeister: '',
             bananaMeister: '',
-            events: [],
             activeEvent: null,
             editMeister: false,
             eventForm: false,
@@ -49,13 +48,7 @@ export default {
             source: db.ref('data'),
             asObject: true,
         },
-        events: db.ref('events').orderByChild('date'),
         activeEvent: db.ref('events').orderByChild('date').limitToLast(1),
-    },
-    computed: {
-        sortedEvents() {
-            return this.events.reverse().splice(1);
-        },
     },
     methods: {
         updateMeister(bananaMeister) {

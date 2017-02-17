@@ -88,8 +88,6 @@ export default {
             }
 
             this.isSubmitted = true;
-            // eslint-disable-next-line
-            console.log('Ratings: ', this.event.rating);
             this.$firebaseRefs.events.child(this.event['.key']).child('rating').set(this.event.rating);
         },
     },
