@@ -214,7 +214,13 @@ export default {
                 padding: 3px 0 0 30px;
             }
             li.event-info__ave-rating {
+                position: relative;
 /*                 padding: 0 0 3px 30px; */
+                &:before {
+                    content: "\2605";
+                    position: absolute;
+                    left: 2px;
+                }
             }
         }
     }
