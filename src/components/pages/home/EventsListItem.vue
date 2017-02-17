@@ -21,8 +21,8 @@
                         <h4>{{ event.venue }}</h4></li>
                     <li class="event-info__date">Date: {{ event.date }}</li>
                     <li class="event-info__address">Address: {{ event.address }}</li>
-                    <li v-if="event.website" class="event-info__website"><a :href="event.website">Visit website</a></li>
-                    <li v-if="event.menu" class="event-info__menu"><a :href="event.menu">View menu</a></li>
+                    <li v-if="event.website" class="event-info__website"><a :href="encodeURI(event.website)">Visit website</a></li>
+                    <li v-if="event.menu" class="event-info__menu"><a :href="encodeURI(event.menu)">View menu</a></li>
                     <li class="event-info__meister">Chosen by: <strong>{{ event.bananaMeister }}</strong></li>
                     <li class="event-info__ave-rating">Ave. rating: {{ averageRating }}</li>
                 </ul>
@@ -36,7 +36,7 @@ export default {
     props: ['event'],
     computed: {
         backgroundImage() {
-            const s = `background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%), url('${this.event.image}') center center no-repeat`;
+            const s = `background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%), url('${encodeURI(this.event.image)}') center center no-repeat`;
             return s;
         },
         eventImage() {
