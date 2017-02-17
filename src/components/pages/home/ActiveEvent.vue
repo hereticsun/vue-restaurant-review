@@ -1,14 +1,14 @@
 <template>
     <section class="event event--active" v-if="event">
         <div class="event__content">
-            <header class="event__header" :style="{background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%), url(' + eventImage + ') center center no-repeat / cover'}">
+            <header class="event__header" style="background-size: cover;" :style="{background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%), url(' + eventImage + ') center center no-repeat'}">
                 <div>
                     <h2>{{ event.venue }}</h2>
                     <h3>{{ event.date | formattedDate }}</h3>
                 </div>
             </header>
             <div id="map" class="event__map">
-                <a :href="mapLink" :style="`background: url('${mapSrc}') center center /cover`">
+                <a :href="mapLink" style="background-size: cover;" :style="`background: url('${mapSrc}') center center`">
                     <span class="vhdn">Google map of {{ event.venue }}</span>
                 </a>
             </div>
@@ -58,7 +58,9 @@ export default {
         },
         eventImage() {
             if (this.event.image) {
-                return this.event.image;
+                // eslint-disable-next-line
+                console.log('URI', encodeURI(this.event.image));
+                return encodeURI(this.event.image);
             }
 
             return './img/burger-400.jpg';
