@@ -19,7 +19,7 @@
                 <ul class="event-info">
                     <li class="event-info__venue">
                         <h4>{{ event.venue }}</h4></li>
-                    <li class="event-info__date">Date: {{ event.date }}</li>
+                    <li class="event-info__date">Date: {{ event.date | formattedDate }}</li>
                     <li class="event-info__address">Address: {{ event.address }}</li>
                     <li v-if="event.website" class="event-info__website"><a :href="encodeURI(event.website)">Visit website</a></li>
                     <li v-if="event.menu" class="event-info__menu"><a :href="encodeURI(event.menu)">View menu</a></li>
