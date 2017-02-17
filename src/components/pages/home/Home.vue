@@ -61,8 +61,6 @@ export default {
             firebase.auth().signInWithPopup(provider)
                 // eslint-disable-next-line
                 .then((result) => {
-                    // eslint-disable-next-line
-                    console.log('Result:', result);
                     this.user = result.user.uid;
                     return result;
                 })
@@ -76,8 +74,6 @@ export default {
                 // eslint-disable-next-line
                 .then(() => {
                     this.user = undefined;
-                    //eslint-disable-next-line
-                    console.log('Signed out');
                 })
                 // eslint-disable-next-line
                 .catch((error) => {

@@ -9,13 +9,11 @@
     </section>
 </template>
 <script>
-// import firebase from 'firebase';
 import db from '../../../data/firebase';
 import EventsListItem from './EventsListItem';
 
 export default {
     name: 'eventsList',
-    // props: ['events'],
     components: {
         eventsListItem: EventsListItem,
     },
