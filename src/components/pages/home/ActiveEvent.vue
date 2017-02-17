@@ -1,22 +1,22 @@
 <template>
     <section class="event event--active" v-if="event">
         <div class="event__content">
-            <header class="event__header" style="background-size: cover;" :style="{background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%), url(' + eventImage + ') center center no-repeat'}">
+            <header class="event__header" style="background-size: cover;" :style="{background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%), url(' + eventImage + ') center center /cover no-repeat'}">
                 <div>
                     <h2>{{ event.venue }}</h2>
                     <h3>{{ event.date | formattedDate }}</h3>
                 </div>
             </header>
             <div id="map" class="event__map">
-                <a :href="mapLink" style="background-size: cover;" :style="`background: url('${mapSrc}') center center`">
+                <a :href="mapLink" style="background-size: cover;" :style="`background: url('${mapSrc}') center center /cover no-repeat`">
                     <span class="vhdn">Google map of {{ event.venue }}</span>
                 </a>
             </div>
             <ul class="event-info">
                 <li class="event-info__date">Date: {{ event.date | formattedDate }}</li>
                 <li class="event-info__address">Address: {{ event.address }}</li>
-                <li v-if="event.website" class="event-info__website"><a :href="event.website">Visit website</a></li>
-                <li v-if="event.menu" class="event-info__menu"><a :href="event.menu">View menu</a></li>
+                <li v-if="event.website" class="event-info__website"><a :href="encodeURI(event.website)">Visit website</a></li>
+                <li v-if="event.menu" class="event-info__menu"><a :href="encodeURI(event.menu)">View menu</a></li>
                 <li class="event-info__meister">Chosen by: <strong>{{ event.bananaMeister }}</strong></li>
                 <li v-if="user" class="event-info__rating">
                     Rate this restaurant:
@@ -139,11 +139,13 @@ export default {
             }
         }
         .event__map {
-            width: 50%;
+            width: 100%;
+            height: 50vw;
             float: left;
             overflow: hidden;
             @media(min-width: 769px) {
                 width: calc(50% - ((1/3) * 100%));
+                height: auto;
                 float: none;
             }
             a {
@@ -160,7 +162,7 @@ export default {
         .event-info {
             box-sizing: border-box;
             padding: 10px 20px;
-            width: 50%;
+            width: 100%;
             float: left;
             list-style: none;
             font-size: 16px;
@@ -170,10 +172,19 @@ export default {
                 float: none;
             }
             li {
-                background-position: left center;
+                box-sizing: border-box;
+                background-position: left 3px;
                 background-repeat: no-repeat;
                 background-size: 20px;
                 padding: 3px 0 3px 30px;
+                margin: 0 5px 3px;
+                width: calc(50% - 10px);
+                float: left;
+                @media(min-width:769px) {
+                    width: 100%;
+                    margin: 0 0 3px 0;
+                    float: none;
+                }
                 a {
                     color: #415c76;
                     border-bottom: 1px dotted #415c76;
@@ -203,7 +214,7 @@ export default {
                 padding: 3px 0 0 30px;
             }
             li.event-info__ave-rating {
-                padding: 0 0 3px 30px;
+/*                 padding: 0 0 3px 30px; */
             }
         }
     }
