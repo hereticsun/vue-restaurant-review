@@ -1,7 +1,7 @@
 <template>
     <li class="events-list__event" @click="toggleFlip">
         <div class="events-list__event-content">
-            <div class="events-list__event--front" style="background-size: cover;" :style="backgroundImage">
+            <div class="events-list__event--front" :style="{background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%), url(' + eventImage + ') center center /cover no-repeat'}">
                 <header class="events-list__event-header">
                     <h3>{{ event.venue }}</h3>
                     <dl>
@@ -36,8 +36,18 @@ export default {
     props: ['event'],
     computed: {
         backgroundImage() {
-            const s = `background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%), url('${this.event.image}') center center no-repeat /cover`;
+            const s = `background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%), url('${this.event.image}') center center no-repeat`;
             return s;
+        },
+        eventImage() {
+            if (this.event.image) {
+                return this.event.image;
+                // eslint-disable-next-line
+                console.log('URI', encodeURI(this.event.image));
+                return encodeURI(this.event.image);
+            }
+
+            return './img/burger-400.jpg';
         },
         averageRating() {
             const values = this.event.rating;
