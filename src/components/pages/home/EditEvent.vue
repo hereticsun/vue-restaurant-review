@@ -1,7 +1,6 @@
 <template>
     <section class="edit-event">
         <div class="container">
-            <pre>{{ event }}</pre>
             <form>
                 <h2>Edit event</h2>
                 <fieldset>
@@ -32,6 +31,8 @@
                         </li>
                         <li>
                             <button @click.prevent="editEvent">Update Event</button>
+<!--                             <button @click.prevent="deleteEvent">Delete Event</button> -->
+                        </li>
                     </ul>
                 </fieldset>
             </form>
@@ -52,7 +53,6 @@
         },
         methods: {
             editEvent() {
-                // eslint-disable-next-line
                 this.$emit('resetEditForm', false);
 
                 const event = {
@@ -67,6 +67,10 @@
                 };
 
                 this.$firebaseRefs.events.child(this.event['.key']).set(event);
+            },
+            deleteEvent() {
+                this.$emit('resetEditForm', false);
+                this.$firebaseRefs.events.child(this.event['.key']).remove();
             },
             formattedDate(date) {
                 const d = new Date(date);
