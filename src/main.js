@@ -7,7 +7,6 @@ import VueFire from 'vuefire';
 // import Firebase from 'firebase';
 
 import routes from './routes';
-import store from './store/store';
 import App from './App';
 
 Vue.use(VueRouter);
@@ -31,6 +30,5 @@ const router = new VueRouter({
 new Vue({
     el: '#app',
     router,
-    store,
     render: h => h(App),
 });
