@@ -2,7 +2,6 @@
     <header class="header-primary">
         <img src="./img/main-logo.svg" alt="beyond" class="logo" />
         <h1>{{ pagetitle }}</h1>
-        <div class="fifty"></div>
     </header>
 </template>
 <script>
@@ -15,7 +14,7 @@ export default {
 };
 </script>
 <style scoped>
-header {
+.header-primary {
     background-color: #FEF200;
     color: #000;
     overflow: hidden;

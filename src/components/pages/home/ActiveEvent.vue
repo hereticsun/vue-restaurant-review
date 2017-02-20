@@ -1,5 +1,5 @@
 <template>
-    <section class="event event--active" v-if="event">
+    <section class="event--active" v-if="event">
         <div class="event__content">
             <header class="event__header" style="background-size: cover;" :style="{background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%), url(' + eventImage + ') center center /cover no-repeat'}">
                 <div>
@@ -94,7 +94,7 @@ export default {
 };
 </script>
 <style scoped>
-.event {
+.event--active {
     box-sizing: border-box;
     width: 100%;
     max-width: 1440px;

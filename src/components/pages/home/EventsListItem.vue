@@ -17,7 +17,7 @@
                     <a :href="mapLink"><img :src="mapSrc" :alt="mapAlt"></a>
                 </div>
                 <ul class="event-info">
-                    <li class="event-info__venue">
+                    <li>
                         <h4>{{ event.venue }}</h4></li>
                     <li class="event-info__date">Date: {{ event.date | formattedDate }}</li>
                     <li class="event-info__address">Address: {{ event.address }}</li>
