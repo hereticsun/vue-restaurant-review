@@ -2,11 +2,19 @@
 
 > Demo Vue JS project
 
+## Pre-requisites
+
+The following software packages are pre-requisites:
+
+- [Node](https://nodejs.org/en/) 4.0.0 or newer
+- [NPM](https://www.npmjs.com/) 3.0.0 or newer
+- [Yarn](https://yarnpkg.com/)
+
 ## Build Setup
 
 ``` bash
 # install dependencies
-npm install
+yarn
 
 # serve with hot reload at localhost:8080
 npm run dev
