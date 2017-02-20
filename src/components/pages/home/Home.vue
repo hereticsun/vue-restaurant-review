@@ -11,9 +11,11 @@
                     </form>
                 </transition>
                 <button @click="onUserLogIn" class="bananameister__button" v-if="!user">Sign In</button>
-                <button @click="onUserLogOut" class="bananameister__button" v-if="user">Sign Out</button>
-                <button @click="eventForm = !eventForm" class="bananameister__button" v-if="user">{{ eventForm ? 'Cancel' : 'Add Event' }}</button>
-                <button @click="editEventForm = !editEventForm" class="bananameister__button" v-if="user">{{ editEventForm ? 'Cancel' : 'Edit Event' }}</button>
+                <div class="controls">
+                    <button @click="onUserLogOut" class="bananameister__button" v-if="user">Sign Out</button>
+                    <button @click="eventForm = !eventForm" class="bananameister__button" v-if="user">{{ eventForm ? 'Cancel' : 'Add Event' }}</button>
+                    <button @click="editEventForm = !editEventForm" class="bananameister__button" v-if="user">{{ editEventForm ? 'Cancel' : 'Edit Event' }}</button>
+                </div>
             </div>
         </section>
         <add-event v-if="eventForm" @resetForm="eventForm = $event"></add-event>
@@ -122,6 +124,17 @@ export default {
             background: transparent;
         }
     }
+    .controls {
+        clear: both;
+        width: 100%;
+        text-align: left;
+
+        @media(min-width: 600px) {
+            float: right;
+            clear: none;
+            width: auto;
+        }
+    }
 }
 
 .bananameister__edit-link {
@@ -152,7 +165,6 @@ export default {
     font-size: 12px;
     display: inline-block;
     width: auto;
-    float: right;
     margin: 13px 0 13px 5px;
     background-color: #eaeaea;
     border: 1px solid #d5d5d5;
@@ -160,6 +172,10 @@ export default {
     padding: 3px 5px;
     transition: background 0.4s ease-in;
     cursor: pointer;
+
+    @media(min-width: 600px) {
+        float: right;
+    }
 }
 
 .bananameister__submit {
