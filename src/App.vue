@@ -12,10 +12,6 @@ export default {
     components: {
         HeaderPrimary,
     },
-    created() {
-        this.$store.dispatch('initEvents');
-        this.$store.dispatch('initMeister');
-    },
 };
 </script>
 <style>
