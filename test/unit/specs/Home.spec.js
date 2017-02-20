@@ -8,6 +8,6 @@ describe('Home.vue', () => {
             render: (h) => h(Home),
         });
         expect(vm.$el.querySelector('.header-primary h1').textContent)
-            .to.equal('Tech Lunch');
+            .to.equal('TECH LUNCH');
     });
 });
