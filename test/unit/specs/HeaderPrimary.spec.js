@@ -8,7 +8,7 @@ describe('HeaderPrimary.vue', () => {
             render: (h) => h(HeaderPrimary),
         });
         expect(vm.$el.querySelector('.header-primary h1').textContent)
-            .to..be.a('string');
+            .to.be.a('string');
         expect(vm.$el.querySelector('.header-primary h1').textContent)
             .to.equal('Tech Lunch');
     });
