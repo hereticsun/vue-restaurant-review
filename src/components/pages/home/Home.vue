@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <section class="bananameister">
+        <section class="bananameister" v-if="bananaMeister">
             <div class="container">
                 <h2>Current Banana Meister: <mark>{{ data.bananaMeister }}</mark> <button v-if="user" @click="editMeister = !editMeister" class="bananameister__edit-link">{{ editMeister ? 'Cancel' : 'Edit' }}</button></h2>
                 <transition name="fade">
@@ -20,7 +20,7 @@
         </section>
         <add-event v-if="eventForm" @resetForm="eventForm = $event"></add-event>
         <edit-event v-if="editEventForm" @resetEditForm="editEventForm = $event" :event="activeEvent[0]"></edit-event>
-        <active-event :event="activeEvent[0]" :user="user"></active-event>
+        <active-event v-if="activeEvent" :event="activeEvent[0]" :user="user"></active-event>
         <events-list></events-list>
     </div>
 </template>

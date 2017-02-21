@@ -3,7 +3,7 @@
         <header>
             <h2>Previous Events</h2>
         </header>
-        <ul class="events-list">
+        <ul class="events-list" v-if="sortedEvents">
             <events-list-item v-for="event in sortedEvents" :event="event"></events-list-item>
         </ul>
     </section>
@@ -28,7 +28,11 @@ export default {
     computed: {
         sortedEvents() {
             const eventsList = this.events;
-            return eventsList.slice().reverse().splice(1);
+            if (eventsList) {
+                return eventsList.slice().reverse().splice(1);
+            }
+
+            return '';
         },
     },
 };
