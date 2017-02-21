@@ -15,7 +15,7 @@ export default {
 };
 </script>
 <style>
-@import "./assets/css/normalize.css";
+@import "./../static/css/normalize.css";
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
