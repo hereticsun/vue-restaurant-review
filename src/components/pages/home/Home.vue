@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <section class="bananameister" v-if="bananaMeister">
+        <section class="bananameister">
             <div class="container">
                 <h2>Current Banana Meister: <mark>{{ data.bananaMeister }}</mark> <button v-if="user" @click="editMeister = !editMeister" class="bananameister__edit-link">{{ editMeister ? 'Cancel' : 'Edit' }}</button></h2>
                 <transition name="fade">
